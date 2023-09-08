@@ -22,11 +22,14 @@ public class Spell {
     @Column(name = "spell_name", nullable = false)
     private String name;
 
+    @Column(name = "spell_description")
+    private String description;
+
     @ManyToMany
     @JoinTable(
-            name = "spell_classes",
+            name = "spell_jobs",
             joinColumns = @JoinColumn(name = "spell_id"),
             inverseJoinColumns = @JoinColumn(name = "class_id")
     )
-    private Set<CharacterClass> availableClasses;
+    private Set<Job> availableClasses;
 }

@@ -20,7 +20,9 @@ public class Subclass {
     @Column(name = "subclass_name", nullable = false)
     private String name;
 
+    @Column(name = "subclass_description")
+    private String description;
+
     @ManyToOne
-    @JoinColumn(name = "subclass_class")
-    private CharacterClass characterClass;
+    private Job job;
 }

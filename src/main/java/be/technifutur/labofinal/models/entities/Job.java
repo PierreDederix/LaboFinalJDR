@@ -13,16 +13,18 @@ import java.util.Set;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class CharacterClass {
+public class Job {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "class_id", nullable = false)
+    @Column(name = "job_id", nullable = false)
     private Long id;
 
-    @Column(name = "class_name", nullable = false)
+    @Column(name = "job_name", nullable = false)
     private String name;
 
-    @OneToMany(mappedBy = "characterClass")
-    @JoinColumn(name = "class_subclasses")
+    @Column(name = "job_description")
+    private String description;
+
+    @OneToMany(mappedBy = "job")
     private Set<Subclass> AvailableSubclasses;
 }

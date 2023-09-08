@@ -23,8 +23,10 @@ public class Scenario {
     @Column(name = "scenario_name", nullable = false)
     private String name;
 
+    @Column(name = "scenario_synopsis")
+    private String synopsis;
+
     @OneToMany(mappedBy = "scenario")
-    @JoinColumn(name = "scenario_characters")
     private Set<Character> characters = new HashSet<>();
 
 }

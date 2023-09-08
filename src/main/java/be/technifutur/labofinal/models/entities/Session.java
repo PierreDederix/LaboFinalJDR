@@ -36,6 +36,5 @@ public class Session {
     private Set<User> users;
 
     @ManyToOne
-    @JoinColumn(name = "session_scenario")
     private Scenario scenario;
 }

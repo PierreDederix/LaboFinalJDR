@@ -26,6 +26,9 @@ public class Character {
     @Column(name = "character_level")
     private Integer level;
 
+    @Column(name = "character_hp")
+    private Integer hp;
+
     @Column(name = "character_strength")
     private Integer strength;
 
@@ -49,8 +52,8 @@ public class Character {
     private User player;
 
     @ManyToOne
-    @JoinColumn(name = "character_class")
-    private CharacterClass characterClass;
+    @JoinColumn(name = "character_job")
+    private Job job;
 
     @ManyToOne
     @JoinColumn(name = "character_subclass")
