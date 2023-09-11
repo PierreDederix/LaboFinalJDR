@@ -1,4 +1,4 @@
-package be.technifutur.labofinal.configs;
+package be.technifutur.labofinal.jwt;
 
 import be.technifutur.labofinal.jwt.JWTUtils;
 import jakarta.servlet.FilterChain;
@@ -18,11 +18,9 @@ import java.io.IOException;
 @Component
 public class JwtFilter extends OncePerRequestFilter {
     private final UserDetailsService userDetailsService;
-    private final JWTUtils jwtUtils;
 
-    public JwtFilter(UserDetailsService userDetailsService, JWTUtils utils) {
+    public JwtFilter(UserDetailsService userDetailsService) {
         this.userDetailsService = userDetailsService;
-        this.jwtUtils = utils;
     }
 
     @Override

@@ -14,6 +14,7 @@ public class UserDTO {
     private Long id;
     private String username;
     private Set<String> roles;
+    private Set<String> status;
 
     public static UserDTO toDTO(User entity) {
         if (entity == null) {
@@ -23,13 +24,14 @@ public class UserDTO {
         return UserDTO.builder()
                 .id(entity.getId())
                 .username(entity.getUsername())
-                .roles(
-                        entity.getAuthorities().stream()
-                                .filter(authority -> authority.getAuthority().startsWith("ROLE_"))
-                                .map(authority -> authority.getAuthority().replace("ROLE_", ""))
-                                .collect(Collectors.toSet())
+                .roles(entity.getRoles().stream()
+                        .map(Enum::toString)
+                        .collect(Collectors.toSet())
                 )
-
+                .status(entity.getStatus().stream()
+                        .map(Enum::toString)
+                        .collect(Collectors.toSet())
+                )
                 .build();
     }
 }

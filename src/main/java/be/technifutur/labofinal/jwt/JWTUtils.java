@@ -21,10 +21,10 @@ public class JWTUtils {
         Assert.notNull(auth, "auth should not be null");
 
         return JWT.create()
-                .withSubject(auth.getName())
-                .withExpiresAt(Instant.ofEpochMilli(System.currentTimeMillis() + 86_400_000))
+                .withSubject( auth.getName() )
+                .withExpiresAt( Instant.ofEpochMilli( System.currentTimeMillis() + 86_400_000 ) )// Expire après 24 heures
                 .withClaim("roles", auth.getAuthorities().stream().map(GrantedAuthority::getAuthority).toList())
-                .sign(Algorithm.HMAC512("s3cr3t"));
+                .sign( Algorithm.HMAC512("c&u!ZI0fgHOZ5r,Yt]7YjkvFBGQACXm6EyEo7_v',VrYS={gf1") );
     }
 
     public static String extractToken(HttpServletRequest request) {
@@ -33,11 +33,11 @@ public class JWTUtils {
         if (authHeader == null) {
             return null;
         }
-        if (!authHeader.startsWith("Bearer")) {
+        if (!authHeader.startsWith("Bearer ")) {
             return null;
         }
 
-        String token = authHeader.replace("Bearer", "").trim();
+        String token = authHeader.replace("Bearer ", "").trim();
 
         return !token.isEmpty() ? token : null;
     }

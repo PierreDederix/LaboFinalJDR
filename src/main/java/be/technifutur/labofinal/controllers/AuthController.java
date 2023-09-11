@@ -33,7 +33,7 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody @Valid LoginForm form) {
+    public ResponseEntity<AuthDTO> login(@RequestBody @Valid LoginForm form) {
         String token = userService.login(form.getUsername(), form.getPassword());
         User user = (User)userDetailsService.loadUserByUsername(form.getUsername());
         return ResponseEntity.ok(AuthDTO.toDTO(token, user));

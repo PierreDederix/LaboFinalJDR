@@ -1,6 +1,6 @@
 package be.technifutur.labofinal.models.entities;
 
-public enum Role {
-    USER,
-    ADMIN
+public enum Status {
+    GAME_MASTER,
+    PLAYER
 }

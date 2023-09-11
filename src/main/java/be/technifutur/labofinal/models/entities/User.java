@@ -33,10 +33,18 @@ public class User implements UserDetails {
     @ElementCollection(fetch = FetchType.EAGER)
     @Enumerated(EnumType.STRING)
     @CollectionTable(
-            name = "user_role",
+            name = "user_roles",
             joinColumns = @JoinColumn(name = "user_id")
     )
-    private Set<Role> role;
+    private Set<Role> roles;
+
+    @ElementCollection(fetch = FetchType.EAGER)
+    @Enumerated(EnumType.STRING)
+    @CollectionTable(
+            name = "user_status",
+            joinColumns = @JoinColumn(name = "user_id")
+    )
+    private Set<Status> status;
 
     @OneToMany(mappedBy = "player")
     private Set<Character> characters = new HashSet<>();
@@ -46,10 +54,10 @@ public class User implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Set.of(
-                new SimpleGrantedAuthority("ROLE_PLAYER"),
-                new SimpleGrantedAuthority("ROLE_GAME_MASTER")
-        );
+        return roles.stream()
+                .map(Enum::name)
+                .map(SimpleGrantedAuthority::new)
+                .toList();
     }
 
     @Override

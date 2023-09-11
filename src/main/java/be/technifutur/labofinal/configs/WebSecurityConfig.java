@@ -1,5 +1,6 @@
 package be.technifutur.labofinal.configs;
 
+import be.technifutur.labofinal.jwt.JwtFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -15,7 +16,6 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
-@EnableMethodSecurity(securedEnabled = true)
 public class WebSecurityConfig {
 
     @Bean
@@ -41,7 +41,6 @@ public class WebSecurityConfig {
                     .requestMatchers("/auth/login", "/auth/register").permitAll()
                     .requestMatchers(HttpMethod.HEAD).hasRole("ADMIN")
                     .requestMatchers("/test/header").anonymous()
-                    .requestMatchers(HttpMethod.POST, "/studi?/*").hasAuthority("ROLE_USER")
                     .requestMatchers( request -> request.getParameterMap().size() > 5).authenticated();
         });
         return http.build();
