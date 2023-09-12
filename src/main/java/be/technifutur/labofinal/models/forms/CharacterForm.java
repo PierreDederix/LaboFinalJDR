@@ -15,12 +15,6 @@ public class CharacterForm {
     private String name;
 
     @NotNull
-    private Integer level;
-
-    @NotNull
-    private Integer hp;
-
-    @NotNull
     private Integer strength;
 
     @NotNull
@@ -38,12 +32,15 @@ public class CharacterForm {
     @NotNull
     private Integer charisma;
 
+    @NotBlank
+    private String job;
+
+    private String subclass;
+
     public Character toEntity() {
         Character character = new Character();
 
         character.setName(this.name);
-        character.setLevel(this.level);
-        character.setHp(this.hp);
         character.setStrength(this.strength);
         character.setDexterity(this.dexterity);
         character.setConstitution(this.constitution);

@@ -19,11 +19,17 @@ public class Job {
     @Column(name = "job_id", nullable = false)
     private Long id;
 
-    @Column(name = "job_name", nullable = false)
+    @Column(name = "job_name", nullable = false, unique = true)
     private String name;
 
-    @Column(name = "job_description")
+    @Column(name = "job_description", length = 1000)
     private String description;
+
+    @Column(name = "job_subclass_level")
+    private Integer subclassLevel;
+
+    @Column(name = "job_hp_dice_value")
+    private Integer hpDiceValue;
 
     @OneToMany(mappedBy = "job")
     private Set<Subclass> AvailableSubclasses;

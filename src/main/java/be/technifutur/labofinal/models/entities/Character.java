@@ -48,7 +48,7 @@ public class Character {
     private Integer charisma;
 
     @ManyToOne
-    @JoinColumn(name = "character_player", nullable = false)
+    @JoinColumn(name = "character_player")
     private User player;
 
     @ManyToOne

@@ -20,7 +20,7 @@ public class Subclass {
     @Column(name = "subclass_name", nullable = false)
     private String name;
 
-    @Column(name = "subclass_description")
+    @Column(name = "subclass_description", length = 1000)
     private String description;
 
     @ManyToOne

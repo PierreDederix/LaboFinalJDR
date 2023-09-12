@@ -1,6 +1,5 @@
 package be.technifutur.labofinal.services.impl;
 
-import be.technifutur.labofinal.exceptions.ResourceNotFoundException;
 import be.technifutur.labofinal.models.entities.Character;
 import be.technifutur.labofinal.repositories.CharacterRepository;
 import be.technifutur.labofinal.services.CharacterService;
@@ -46,7 +45,26 @@ public class CharacterServiceImpl implements CharacterService {
     }
 
     @Override
-    public void levelUp() {
+    public Integer getStatMod(Integer stat) {
+        if (stat < 10) {
+            return (stat-11)/2;
+        }
+        return (stat-10)/2;
+    }
+
+    @Override
+    public void chooseSubclass(String subclass) {
 
     }
+
+    @Override
+    public void levelUp(Character character) {
+        character.setLevel(character.getLevel()+1);
+        character.setHp(
+                character.getHp() +
+                (character.getJob().getHpDiceValue()/2)+1 +
+                getStatMod(character.getConstitution())
+        );
+    }
 }
+
