@@ -2,10 +2,7 @@ package be.technifutur.labofinal.other;
 
 import be.technifutur.labofinal.models.entities.*;
 import be.technifutur.labofinal.models.entities.Character;
-import be.technifutur.labofinal.repositories.CharacterRepository;
-import be.technifutur.labofinal.repositories.JobRepository;
-import be.technifutur.labofinal.repositories.SubclassRepository;
-import be.technifutur.labofinal.repositories.UserRepository;
+import be.technifutur.labofinal.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -18,13 +15,15 @@ public class DataInitializer implements CommandLineRunner {
     private final CharacterRepository characterRepository;
     private final JobRepository jobRepository;
     private final SubclassRepository subclassRepository;
+    private final ScenarioRepository scenarioRepository;
 
     @Autowired
-    public DataInitializer(UserRepository userRepository, CharacterRepository characterRepository, JobRepository jobRepository, SubclassRepository subclassRepository) {
+    public DataInitializer(UserRepository userRepository, CharacterRepository characterRepository, JobRepository jobRepository, SubclassRepository subclassRepository, ScenarioRepository scenarioRepository) {
         this.userRepository = userRepository;
         this.characterRepository = characterRepository;
         this.jobRepository = jobRepository;
         this.subclassRepository = subclassRepository;
+        this.scenarioRepository = scenarioRepository;
     }
 
     @Override
@@ -46,7 +45,6 @@ public class DataInitializer implements CommandLineRunner {
         Job job1 = new Job();
         job1.setName("Guerrier");
         job1.setDescription("Chevaliers menant une quête, seigneurs conquérants, champions royaux, fantassins d’élite, mercenaires endurcis et rois-bandits, tous partagent une maîtrise inégalée des armes et des armures ainsi qu’une connaissance approfondie des compétences de combat. Tous côtoient la mort, l’infligeant autant qu’ils y font face.");
-        job1.setSubclassLevel(3);
         job1.setHpDiceValue(10);
         jobRepository.save(job1);
 
@@ -71,7 +69,6 @@ public class DataInitializer implements CommandLineRunner {
         Job job2 = new Job();
         job2.setName("Magicien");
         job2.setDescription("Les magiciens sont de puissants utilisateurs de magie, définis et unifiés en une classe par les sorts qu’ils lancent. En utilisant des ondes magiques qui voyagent à travers l’univers, les magiciens lancent des sorts tels que des flammes explosives, des arcs de foudre, des illusions trompeuses et le contrôle de l’esprit. Leur magie peut invoquer des monstres d’autres plans d’existence, entrevoir le futur ou transformer des ennemis en zombies. Leurs sorts les plus puissants peuvent transformer une substance en une autre, faire tomber des météores du ciel et même ouvrir des portails vers d’autres mondes.");
-        job2.setSubclassLevel(2);
         job2.setHpDiceValue(6);
         jobRepository.save(job2);
 
@@ -96,7 +93,6 @@ public class DataInitializer implements CommandLineRunner {
         Job job3 = new Job();
         job3.setName("Roublard");
         job3.setDescription("Les roublards comptent sur les compétences, la furtivité et les faiblesses de l’ennemi pour contrôler n’importe quelle situation. Ils ont le don de trouver des solutions à n’importe quel problème, démontrant l’ingéniosité et la polyvalence qui sont les pierres angulaires de toute aventure réussie.");
-        job3.setSubclassLevel(3);
         job3.setHpDiceValue(8);
         jobRepository.save(job3);
 
@@ -122,6 +118,7 @@ public class DataInitializer implements CommandLineRunner {
         character1.setName("Albior");
         character1.setLevel(1);
         character1.setJob(jobRepository.findByName("Guerrier").orElseThrow(RuntimeException::new));
+        character1.setSubclass(subclassRepository.findByName("Champion").orElseThrow(RuntimeException::new));
         character1.setHp(14);
         character1.setStrength(18);
         character1.setDexterity(12);
@@ -131,5 +128,10 @@ public class DataInitializer implements CommandLineRunner {
         character1.setCharisma(14);
         character1.setPlayer(userRepository.findById(1L).orElseThrow(RuntimeException::new));
         characterRepository.save(character1);
+
+        Scenario scenario1 = new Scenario();
+        scenario1.setName("Les îles élémentaires");
+        scenario1.setSynopsis("Dans un univers divisé en plusieurs archipels indépendants suite à un cataclysme magique sans précedent survenu il y a des siècles, la longévité des elfes et autres races à longue espérance de vie ont drastiquement diminué et les druides sont devenus les garants de l'ordre établi. Dans ce contexte, un groupe d'aventuriers de l'archipel du vent se retrouve confrontré à des dangers insidieux");
+        scenarioRepository.save(scenario1);
     }
 }

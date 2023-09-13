@@ -1,7 +1,9 @@
 package be.technifutur.labofinal.services.impl;
 
 import be.technifutur.labofinal.models.entities.Character;
+import be.technifutur.labofinal.models.entities.Scenario;
 import be.technifutur.labofinal.repositories.CharacterRepository;
+import be.technifutur.labofinal.repositories.ScenarioRepository;
 import be.technifutur.labofinal.services.CharacterService;
 import org.springframework.stereotype.Service;
 
@@ -11,9 +13,11 @@ import java.util.List;
 public class CharacterServiceImpl implements CharacterService {
 
     private final CharacterRepository characterRepository;
+    private final ScenarioRepository scenarioRepository;
 
-    public CharacterServiceImpl(CharacterRepository characterRepository) {
+    public CharacterServiceImpl(CharacterRepository characterRepository, ScenarioRepository scenarioRepository) {
         this.characterRepository = characterRepository;
+        this.scenarioRepository = scenarioRepository;
     }
 
 
@@ -45,16 +49,22 @@ public class CharacterServiceImpl implements CharacterService {
     }
 
     @Override
+    public void assignScenario(Character character, Long id) {
+        //TODO exceptions
+        if (character.getScenario() != null) {
+            throw new RuntimeException();
+        }
+        Scenario scenario = scenarioRepository.findById(id).orElseThrow(RuntimeException::new);
+        character.setScenario(scenario);
+        characterRepository.save(character);
+    }
+
+    @Override
     public Integer getStatMod(Integer stat) {
         if (stat < 10) {
             return (stat-11)/2;
         }
         return (stat-10)/2;
-    }
-
-    @Override
-    public void chooseSubclass(String subclass) {
-
     }
 
     @Override
@@ -65,6 +75,7 @@ public class CharacterServiceImpl implements CharacterService {
                 (character.getJob().getHpDiceValue()/2)+1 +
                 getStatMod(character.getConstitution())
         );
+        characterRepository.save(character);
     }
 }
 

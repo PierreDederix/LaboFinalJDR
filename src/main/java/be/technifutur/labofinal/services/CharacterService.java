@@ -10,7 +10,7 @@ public interface CharacterService {
     List<Character> getAll();
     void update(Long id, Character character);
     void delete(Long id);
+    void assignScenario(Character character, Long id);
     Integer getStatMod(Integer stat);
     void levelUp(Character character);
-    void chooseSubclass(String subclass);
 }

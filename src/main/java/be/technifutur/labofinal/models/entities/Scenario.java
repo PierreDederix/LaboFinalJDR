@@ -20,13 +20,12 @@ public class Scenario {
     @Column(name = "scenario_id", nullable = false)
     private Long id;
 
-    @Column(name = "scenario_name", nullable = false)
+    @Column(name = "scenario_name")
     private String name;
 
-    @Column(name = "scenario_synopsis")
+    @Column(name = "scenario_synopsis", length = 1000)
     private String synopsis;
 
     @OneToMany(mappedBy = "scenario")
     private Set<Character> characters = new HashSet<>();
-
 }

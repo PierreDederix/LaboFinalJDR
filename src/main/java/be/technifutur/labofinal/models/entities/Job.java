@@ -25,9 +25,6 @@ public class Job {
     @Column(name = "job_description", length = 1000)
     private String description;
 
-    @Column(name = "job_subclass_level")
-    private Integer subclassLevel;
-
     @Column(name = "job_hp_dice_value")
     private Integer hpDiceValue;
 
