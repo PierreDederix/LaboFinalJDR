@@ -1,5 +1,6 @@
 package be.technifutur.labofinal.services.impl;
 
+import be.technifutur.labofinal.exceptions.UniqueViolationException;
 import be.technifutur.labofinal.jwt.JWTUtils;
 import be.technifutur.labofinal.models.entities.Role;
 import be.technifutur.labofinal.models.entities.User;
@@ -31,8 +32,7 @@ public class UserServiceImpl implements UserService {
         Assert.notNull(user, "User should not be null");
 
         if (userRepository.existsByName(user.getName())) {
-            // TODO EXCEPTION
-            throw new RuntimeException();
+            throw new UniqueViolationException("name");
         }
 
         user.setPassword(encoder.encode(user.getPassword()));

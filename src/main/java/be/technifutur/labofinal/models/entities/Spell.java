@@ -19,7 +19,7 @@ public class Spell {
     @Column(name = "spell_id", nullable = false)
     private Long id;
 
-    @Column(name = "spell_name", nullable = false)
+    @Column(name = "spell_name", nullable = false, unique = true)
     private String name;
 
     @Column(name = "spell_description")

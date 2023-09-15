@@ -1,8 +1,10 @@
 package be.technifutur.labofinal.exceptions;
 
+import lombok.Getter;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;
 
+@Getter
 public class ResourceNotFoundException extends ResponseStatusException {
 
     private final Object id;

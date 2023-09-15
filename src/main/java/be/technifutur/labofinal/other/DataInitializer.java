@@ -1,5 +1,6 @@
 package be.technifutur.labofinal.other;
 
+import be.technifutur.labofinal.exceptions.ResourceNotFoundException;
 import be.technifutur.labofinal.models.entities.*;
 import be.technifutur.labofinal.models.entities.Character;
 import be.technifutur.labofinal.repositories.*;
@@ -51,19 +52,19 @@ public class DataInitializer implements CommandLineRunner {
         Subclass subclassGuerrier1 = new Subclass();
         subclassGuerrier1.setName("Champion");
         subclassGuerrier1.setDescription("L'archétype du champion se concentre sur le développement du pouvoir physique brut pour parvenir à la perfection mortelle. Ceux qui se basent sur cet archétype combinent une formation rigoureuse et une excellence physique pour porter des coups dévastateurs.");
-        subclassGuerrier1.setJob(jobRepository.findByName("Guerrier").orElseThrow(RuntimeException::new));
+        subclassGuerrier1.setJob(jobRepository.findById(1L).orElseThrow(() -> new ResourceNotFoundException(1L, Job.class)));
         subclassRepository.save(subclassGuerrier1);
 
         Subclass subclassGuerrier2 = new Subclass();
         subclassGuerrier2.setName("Maître de guerre");
         subclassGuerrier2.setDescription("Vous êtes un expert des manœuvres durant la bataille. Vous comptez sur la ruse et la prouesse pour vaincre vos ennemis. Une formation intense combinée à une attention constante vous propulse au combat. La victoire est un signe de plus de la suprématie martiale.");
-        subclassGuerrier2.setJob(jobRepository.findByName("Guerrier").orElseThrow(RuntimeException::new));
+        subclassGuerrier2.setJob(jobRepository.findById(1L).orElseThrow(() -> new ResourceNotFoundException(1L, Job.class)));
         subclassRepository.save(subclassGuerrier2);
 
         Subclass subclassGuerrier3 = new Subclass();
         subclassGuerrier3.setName("Chevalier occulte");
         subclassGuerrier3.setDescription("L’archétype chevalier occulte combine la maîtrise martiale commune à tous les combattants avec une étude attentive de la magie. Les chevaliers occultes utilisent des techniques magiques similaires à celles pratiquées par les magiciens, et concentrent leurs études sur deux des huit écoles de magie : abjuration et évocation. Les sorts d’abjuration accordent une protection supplémentaire au chevalier occulte dans la bataille, et les sorts d'évocation infligent des dégâts à plusieurs ennemis à la fois, augmentant la portée du guerrier en combat. Ces chevaliers apprennent un nombre relativement restreint de sorts, ce qui leur permet de les mémoriser au lieu de les garder dans un grimoire.");
-        subclassGuerrier3.setJob(jobRepository.findByName("Guerrier").orElseThrow(RuntimeException::new));
+        subclassGuerrier3.setJob(jobRepository.findById(1L).orElseThrow(() -> new ResourceNotFoundException(1L, Job.class)));
         subclassRepository.save(subclassGuerrier3);
 
         Job job2 = new Job();
@@ -75,19 +76,19 @@ public class DataInitializer implements CommandLineRunner {
         Subclass subclassMagicien1 = new Subclass();
         subclassMagicien1.setName("École d'évocation");
         subclassMagicien1.setDescription("Vous concentrez vos études sur la magie qui crée des effets élémentaires puissants telles qu'un froid glacial, une flamme brûlante, un roulement de tonnerre, une foudre qui crépite ou bien encore de l'acide brûlant. Certains évocateurs se font employer par les forces militaires, servant d'artillerie pour faire sauter les armées ennemies de loin. D'autres utilisent leurs pouvoirs spectaculaires pour protéger les faibles, tandis que d'autres servent leur propre intérêt comme des bandits, des aventuriers ou des tyrans en herbe.");
-        subclassMagicien1.setJob(jobRepository.findByName("Magicien").orElseThrow(RuntimeException::new));
+        subclassMagicien1.setJob(jobRepository.findById(2L).orElseThrow(() -> new ResourceNotFoundException(2L, Job.class)));
         subclassRepository.save(subclassMagicien1);
 
         Subclass subclassMagicien2 = new Subclass();
         subclassMagicien2.setName("École d'illusion");
         subclassMagicien2.setDescription("Vous concentrez vos études sur la magie qui éblouit les sens, embrouille l'esprit et trompe même les plus sages. Votre magie est subtile, mais les illusions fabriquées par votre esprit vif rend réel ce qui semble impossible. Quelques illusionnistes, dont de nombreux gnomes magiciens, sont de petits filous qui n'utilisent leurs sorts que pour divertir. D'autres sont les plus sinistres maîtres de la tromperie, utilisant leurs illusions pour effrayer et tromper les autres afin d'obtenir un gain personnel.");
-        subclassMagicien2.setJob(jobRepository.findByName("Magicien").orElseThrow(RuntimeException::new));
+        subclassMagicien2.setJob(jobRepository.findById(2L).orElseThrow(() -> new ResourceNotFoundException(2L, Job.class)));
         subclassRepository.save(subclassMagicien2);
 
         Subclass subclassMagicien3 = new Subclass();
         subclassMagicien3.setName("École de nécromancie");
         subclassMagicien3.setDescription("L'école de nécromancie explore les forces cosmiques de la vie, de la mort et de la non-vie. Si vous concentrez vos études sur cette tradition, vous apprendrez à manipuler l'énergie qui anime tous les êtres vivants. Plus tard, vous apprendrez même à détruire le corps d’une créature en absorbant sa force de vie, transformant l’énergie vitale en pouvoir magique que vous pouvez manipuler. La plupart des personnes voient des nécromanciens comme des personnes menaçantes, voire même infâmes, en raison de leur association avec le thème de la mort. Mais tous les nécromanciens ne sont pas mauvais, même si les forces qu'ils manipulent sont considérées comme tabou par beaucoup de sociétés.");
-        subclassMagicien3.setJob(jobRepository.findByName("Magicien").orElseThrow(RuntimeException::new));
+        subclassMagicien3.setJob(jobRepository.findById(2L).orElseThrow(() -> new ResourceNotFoundException(2L, Job.class)));
         subclassRepository.save(subclassMagicien3);
 
         Job job3 = new Job();
@@ -99,26 +100,26 @@ public class DataInitializer implements CommandLineRunner {
         Subclass subclassRoublard1 = new Subclass();
         subclassRoublard1.setName("Assassin");
         subclassRoublard1.setDescription("Vous focalisez votre entrainement sur l'art de l'assassinat. Divers personnages choisissent cet archétype : tueurs sous contrat, espions, chasseurs de primes, et même certains religieux entraînés à cela pour exterminer les ennemis de leur divinité. Discrétion, poisons et déguisements vous aident à éliminer vos cibles avec une efficacité meurtrière.");
-        subclassRoublard1.setJob(jobRepository.findByName("Roublard").orElseThrow(RuntimeException::new));
+        subclassRoublard1.setJob(jobRepository.findById(3L).orElseThrow(() -> new ResourceNotFoundException(3L, Job.class)));
         subclassRepository.save(subclassRoublard1);
 
         Subclass subclassRoublard2 = new Subclass();
         subclassRoublard2.setName("Voleur");
         subclassRoublard2.setDescription("Vous perfectionnez vos compétences dans les arts du larcin. Cambrioleurs, bandits, coupe-bourses et autres criminels suivent généralement cet archétype, de même que les roublards qui se considèrent eux-mêmes comme des chercheurs de trésors professionnels, des explorateurs ou des investigateurs. En plus d'améliorer votre agilité et votre furtivité, vous apprenez des compétences utiles pour pénétrer dans des ruines antiques, lire des langues inconnues ou utiliser des objets magiques que vous ne pourriez normalement pas employer.");
-        subclassRoublard2.setJob(jobRepository.findByName("Roublard").orElseThrow(RuntimeException::new));
+        subclassRoublard2.setJob(jobRepository.findById(3L).orElseThrow(() -> new ResourceNotFoundException(3L, Job.class)));
         subclassRepository.save(subclassRoublard2);
 
         Subclass subclassRoublard3 = new Subclass();
         subclassRoublard3.setName("Escroc arcanique");
         subclassRoublard3.setDescription("Quelques roublards améliorent leurs compétences aiguisées en furtivité et agilité avec la magie, apprenant des tours d'enchantement et d'illusion. On trouve parmi eux des voleurs à la tire et des cambrioleurs, mais aussi des farceurs, des fauteurs de troubles et un nombre important d'aventuriers.");
-        subclassRoublard3.setJob(jobRepository.findByName("Roublard").orElseThrow(RuntimeException::new));
+        subclassRoublard3.setJob(jobRepository.findById(3L).orElseThrow(() -> new ResourceNotFoundException(3L, Job.class)));
         subclassRepository.save(subclassRoublard3);
 
         Character character1 = new Character();
         character1.setName("Albior");
         character1.setLevel(1);
-        character1.setJob(jobRepository.findByName("Guerrier").orElseThrow(RuntimeException::new));
-        character1.setSubclass(subclassRepository.findByName("Champion").orElseThrow(RuntimeException::new));
+        character1.setJob(jobRepository.findById(1L).orElseThrow(() -> new ResourceNotFoundException(1L, Job.class)));
+        character1.setSubclass(subclassRepository.findById(1L).orElseThrow(() -> new ResourceNotFoundException(1L, Subclass.class)));
         character1.setHp(14);
         character1.setStrength(18);
         character1.setDexterity(12);
@@ -126,7 +127,7 @@ public class DataInitializer implements CommandLineRunner {
         character1.setIntelligence(12);
         character1.setWisdom(14);
         character1.setCharisma(14);
-        character1.setPlayer(userRepository.findById(1L).orElseThrow(RuntimeException::new));
+        character1.setPlayer(userRepository.findById(1L).orElseThrow(() -> new ResourceNotFoundException(1L, Character.class)));
         characterRepository.save(character1);
 
         Scenario scenario1 = new Scenario();

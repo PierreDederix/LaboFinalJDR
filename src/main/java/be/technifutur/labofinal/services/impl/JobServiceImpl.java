@@ -1,19 +1,25 @@
 package be.technifutur.labofinal.services.impl;
 
+import be.technifutur.labofinal.exceptions.JobUsedOnCharacterException;
+import be.technifutur.labofinal.exceptions.ResourceNotFoundException;
 import be.technifutur.labofinal.models.entities.Job;
+import be.technifutur.labofinal.repositories.CharacterRepository;
 import be.technifutur.labofinal.repositories.JobRepository;
 import be.technifutur.labofinal.services.JobService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class JobServiceImpl implements JobService {
 
     private final JobRepository jobRepository;
+    private final CharacterRepository characterRepository;
 
-    public JobServiceImpl(JobRepository jobRepository) {
+    public JobServiceImpl(JobRepository jobRepository, CharacterRepository characterRepository) {
         this.jobRepository = jobRepository;
+        this.characterRepository = characterRepository;
     }
 
     @Override
@@ -23,8 +29,7 @@ public class JobServiceImpl implements JobService {
 
     @Override
     public Job getOne(Long id) {
-        // TODO EXCEPTION
-        return jobRepository.findById(id).orElseThrow(RuntimeException::new);
+        return jobRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(id, Job.class));
     }
 
     @Override
@@ -40,6 +45,13 @@ public class JobServiceImpl implements JobService {
 
     @Override
     public void delete(Long id) {
+        List<Long> characterJobId = characterRepository.findAll().stream()
+                .filter(character -> Objects.equals(character.getJob().getId(), id))
+                .map(character -> character.getJob().getId())
+                .toList();
+        if (!characterJobId.isEmpty()) {
+            throw new JobUsedOnCharacterException(characterJobId);
+        }
         jobRepository.deleteById(id);
     }
 }

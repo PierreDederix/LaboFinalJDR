@@ -1,10 +1,10 @@
 package be.technifutur.labofinal.models.forms;
 
-import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 @Data
 public class AddScenarioForm {
-    @NotBlank
+    @NotNull
     private Long id;
 }

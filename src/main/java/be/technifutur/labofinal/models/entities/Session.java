@@ -17,7 +17,7 @@ import java.util.Set;
 public class Session {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "session_id", nullable = false)
+    @Column(name = "session_id", nullable = false, unique = true)
     private Long id;
 
     @Column(name = "session_name")

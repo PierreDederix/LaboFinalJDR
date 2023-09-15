@@ -1,5 +1,6 @@
 package be.technifutur.labofinal.services.impl;
 
+import be.technifutur.labofinal.exceptions.ResourceNotFoundException;
 import be.technifutur.labofinal.models.entities.Subclass;
 import be.technifutur.labofinal.repositories.SubclassRepository;
 import be.technifutur.labofinal.services.SubclassService;
@@ -23,8 +24,7 @@ public class SubclassServiceImpl implements SubclassService {
 
     @Override
     public Subclass getOne(Long id) {
-        // TODO EXCEPTION
-        return subclassRepository.findById(id).orElseThrow(RuntimeException::new);
+        return subclassRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(id, Subclass.class));
     }
 
     @Override

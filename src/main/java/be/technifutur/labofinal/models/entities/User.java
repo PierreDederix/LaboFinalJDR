@@ -21,7 +21,7 @@ public class User implements UserDetails {
     @Column(name = "user_id", nullable = false)
     private Long id;
 
-    @Column(name = "user_name", nullable = false)
+    @Column(name = "user_name", nullable = false, unique = true)
     private String name;
 
     @Column(name = "user_password", nullable = false)
@@ -46,7 +46,7 @@ public class User implements UserDetails {
     )
     private Set<Status> status;
 
-    @OneToMany(mappedBy = "player")
+    @OneToMany(mappedBy = "player", cascade = CascadeType.REMOVE)
     private Set<Character> characters = new HashSet<>();
 
     @ManyToMany(mappedBy = "users")

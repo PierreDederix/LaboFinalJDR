@@ -1,5 +1,7 @@
 package be.technifutur.labofinal.services.impl;
 
+import be.technifutur.labofinal.exceptions.ResourceNotFoundException;
+import be.technifutur.labofinal.exceptions.ScenarioAlreadyAssigned;
 import be.technifutur.labofinal.models.entities.Character;
 import be.technifutur.labofinal.models.entities.Scenario;
 import be.technifutur.labofinal.repositories.CharacterRepository;
@@ -28,8 +30,7 @@ public class CharacterServiceImpl implements CharacterService {
 
     @Override
     public Character getOne(Long id) {
-        // TODO EXCEPTION
-        return characterRepository.findById(id).orElseThrow(RuntimeException::new);
+        return characterRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(id, Character.class));
     }
 
     @Override
@@ -50,11 +51,10 @@ public class CharacterServiceImpl implements CharacterService {
 
     @Override
     public void assignScenario(Character character, Long id) {
-        //TODO exceptions
         if (character.getScenario() != null) {
-            throw new RuntimeException();
+            throw new ScenarioAlreadyAssigned(character.getScenario().getId(), Scenario.class);
         }
-        Scenario scenario = scenarioRepository.findById(id).orElseThrow(RuntimeException::new);
+        Scenario scenario = scenarioRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(id, Scenario.class));
         character.setScenario(scenario);
         characterRepository.save(character);
     }
