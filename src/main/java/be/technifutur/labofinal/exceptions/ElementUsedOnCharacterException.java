@@ -5,11 +5,11 @@ import lombok.Getter;
 import java.util.List;
 
 @Getter
-public class JobUsedOnCharacterException extends RuntimeException{
+public class ElementUsedOnCharacterException extends RuntimeException{
     private final List<Long> ids;
 
-    public JobUsedOnCharacterException(List<Long> ids) {
-        super("This job is still used on one or more characters with id : ");
+    public ElementUsedOnCharacterException(List<Long> ids) {
+        super("This element is still used on one or more characters with id : ");
 
         this.ids = ids;
     }

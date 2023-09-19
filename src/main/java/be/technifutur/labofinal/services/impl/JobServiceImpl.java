@@ -1,6 +1,6 @@
 package be.technifutur.labofinal.services.impl;
 
-import be.technifutur.labofinal.exceptions.JobUsedOnCharacterException;
+import be.technifutur.labofinal.exceptions.ElementUsedOnCharacterException;
 import be.technifutur.labofinal.exceptions.ResourceNotFoundException;
 import be.technifutur.labofinal.models.entities.Job;
 import be.technifutur.labofinal.repositories.CharacterRepository;
@@ -50,7 +50,7 @@ public class JobServiceImpl implements JobService {
                 .map(character -> character.getJob().getId())
                 .toList();
         if (!characterJobId.isEmpty()) {
-            throw new JobUsedOnCharacterException(characterJobId);
+            throw new ElementUsedOnCharacterException(characterJobId);
         }
         jobRepository.deleteById(id);
     }

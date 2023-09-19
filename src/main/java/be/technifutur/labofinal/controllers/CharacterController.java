@@ -31,9 +31,10 @@ public class CharacterController {
     public ResponseEntity<Long> create(@RequestBody @Valid CharacterForm form) {
         Character entity = form.toEntity();
         entity.setLevel(1);
-        entity.setJob(jobService.getOne(form.getJob()));
-        entity.setSubclass(subclassService.getOne(form.getSubclass()));
+        entity.setJob(jobService.getOne(form.getJobId()));
+        entity.setSubclass(subclassService.getOne(form.getSubclassId()));
         entity.setHp(entity.getJob().getHpDiceValue() + characterService.getStatMod(entity.getConstitution()));
+        // TODO setPlayer
         Long body = characterService.add(entity);
         return ResponseEntity
                 .status(HttpStatus.CREATED)

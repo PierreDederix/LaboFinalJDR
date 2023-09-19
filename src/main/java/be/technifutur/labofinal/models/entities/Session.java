@@ -23,8 +23,10 @@ public class Session {
     @Column(name = "session_name")
     private String name;
 
+    @Column(name = "session_start")
     private LocalDate sessionStart;
 
+    @Column(name = "session_end")
     private LocalDate sessionEnd;
 
     @ManyToMany

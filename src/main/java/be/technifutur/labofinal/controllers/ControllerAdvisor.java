@@ -1,9 +1,6 @@
 package be.technifutur.labofinal.controllers;
 
-import be.technifutur.labofinal.exceptions.JobUsedOnCharacterException;
-import be.technifutur.labofinal.exceptions.ResourceNotFoundException;
-import be.technifutur.labofinal.exceptions.ScenarioAlreadyAssigned;
-import be.technifutur.labofinal.exceptions.UniqueViolationException;
+import be.technifutur.labofinal.exceptions.*;
 import be.technifutur.labofinal.models.dtos.ErrorDTO;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
@@ -86,14 +83,35 @@ public class ControllerAdvisor extends ResponseEntityExceptionHandler {
                 .body(body);
     }
 
-    @ExceptionHandler(JobUsedOnCharacterException.class)
-    public ResponseEntity<ErrorDTO> handle(JobUsedOnCharacterException ex, HttpServletRequest req) {
+    @ExceptionHandler(ElementUsedOnCharacterException.class)
+    public ResponseEntity<ErrorDTO> handle(ElementUsedOnCharacterException ex, HttpServletRequest req) {
         String uri = req.getRequestURI();
         String method = req.getMethod();
 
         Map<String, Object> error = new HashMap<>();
         error.put("message", ex.getMessage());
         error.put("ids", ex.getIds());
+
+        ErrorDTO body = ErrorDTO.builder()
+                .uri(uri)
+                .method(method)
+                .errors(Set.of(error))
+                .build();
+
+        return ResponseEntity
+                .status(HttpStatus.CONFLICT)
+                .body(body);
+    }
+
+    @ExceptionHandler(IncompatibleSubclassException.class)
+    public ResponseEntity<ErrorDTO> handle(IncompatibleSubclassException ex, HttpServletRequest req) {
+        String uri = req.getRequestURI();
+        String method = req.getMethod();
+
+        Map<String, Object> error = new HashMap<>();
+        error.put("message", ex.getMessage());
+        error.put("jobId", ex.getJobId());
+        error.put("SubclassesId", ex.getSubclassesId());
 
         ErrorDTO body = ErrorDTO.builder()
                 .uri(uri)

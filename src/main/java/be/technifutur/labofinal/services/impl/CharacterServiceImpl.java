@@ -1,9 +1,11 @@
 package be.technifutur.labofinal.services.impl;
 
+import be.technifutur.labofinal.exceptions.IncompatibleSubclassException;
 import be.technifutur.labofinal.exceptions.ResourceNotFoundException;
 import be.technifutur.labofinal.exceptions.ScenarioAlreadyAssigned;
 import be.technifutur.labofinal.models.entities.Character;
 import be.technifutur.labofinal.models.entities.Scenario;
+import be.technifutur.labofinal.models.entities.Subclass;
 import be.technifutur.labofinal.repositories.CharacterRepository;
 import be.technifutur.labofinal.repositories.ScenarioRepository;
 import be.technifutur.labofinal.services.CharacterService;
@@ -25,6 +27,13 @@ public class CharacterServiceImpl implements CharacterService {
 
     @Override
     public Long add(Character character) {
+        if (!character.getJob().getAvailableSubclasses().contains(character.getSubclass())) {
+            throw new IncompatibleSubclassException(character.getJob().getId(),
+                    character.getJob().getAvailableSubclasses().stream()
+                            .map(Subclass::getId)
+                            .toList()
+            );
+        }
         return characterRepository.save(character).getId();
     }
 
@@ -41,6 +50,13 @@ public class CharacterServiceImpl implements CharacterService {
     @Override
     public void update(Long id, Character character) {
         character.setId(id);
+        if (!character.getJob().getAvailableSubclasses().contains(character.getSubclass())) {
+            throw new IncompatibleSubclassException(character.getJob().getId(),
+                    character.getJob().getAvailableSubclasses().stream()
+                            .map(Subclass::getId)
+                            .toList()
+            );
+        }
         characterRepository.save(character);
     }
 
@@ -52,7 +68,7 @@ public class CharacterServiceImpl implements CharacterService {
     @Override
     public void assignScenario(Character character, Long id) {
         if (character.getScenario() != null) {
-            throw new ScenarioAlreadyAssigned(character.getScenario().getId(), Scenario.class);
+            throw new ScenarioAlreadyAssigned(character.getScenario().getId());
         }
         Scenario scenario = scenarioRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(id, Scenario.class));
         character.setScenario(scenario);
