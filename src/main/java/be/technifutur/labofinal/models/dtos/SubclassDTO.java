@@ -11,6 +11,7 @@ public class SubclassDTO {
     private String name;
     private String job;
     private String description;
+    private Boolean magicAvailable;
 
     public static SubclassDTO toDTO(Subclass entity) {
         if (entity == null) {
@@ -22,6 +23,7 @@ public class SubclassDTO {
                 .name(entity.getName())
                 .job(entity.getJob().getName())
                 .description(entity.getDescription())
+                .magicAvailable(entity.getMagicAvailable())
                 .build();
     }
 }

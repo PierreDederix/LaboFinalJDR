@@ -42,9 +42,7 @@ public class WebSecurityConfig {
                     .requestMatchers("/swagger/**", "/swagger-ui/**", "/v3/api-docs/**").permitAll()
                     .requestMatchers("/auth/login", "/auth/register").permitAll()
                     .requestMatchers(("/character/**")).permitAll()
-                    .requestMatchers(HttpMethod.HEAD).hasRole("ADMIN")
-                    .requestMatchers("/test/header").anonymous()
-                    .requestMatchers( request -> request.getParameterMap().size() > 5).authenticated();
+                    .requestMatchers(HttpMethod.HEAD).hasRole("ADMIN");
         });
         return http.build();
     }
@@ -56,4 +54,3 @@ public class WebSecurityConfig {
 
 
 }
-

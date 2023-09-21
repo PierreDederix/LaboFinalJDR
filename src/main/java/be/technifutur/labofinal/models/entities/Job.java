@@ -28,6 +28,9 @@ public class Job {
     @Column(name = "job_hp_dice_value")
     private Integer hpDiceValue;
 
+    @Column(name = "job_magic_available")
+    private Boolean magicAvailable;
+
     @OneToMany(mappedBy = "job", cascade = CascadeType.REMOVE)
     private Set<Subclass> AvailableSubclasses;
 }

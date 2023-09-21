@@ -26,6 +26,6 @@ public class Scenario {
     @Column(name = "scenario_synopsis", length = 1000)
     private String synopsis;
 
-    @OneToMany(mappedBy = "scenario")
+    @OneToMany(mappedBy = "scenario", cascade = CascadeType.PERSIST)
     private Set<Character> characters = new HashSet<>();
 }

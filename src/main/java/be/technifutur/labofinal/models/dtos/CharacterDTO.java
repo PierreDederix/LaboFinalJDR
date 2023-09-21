@@ -20,6 +20,7 @@ public class CharacterDTO {
     private String player;
     private String job;
     private String subclass;
+    private Boolean magicAvailable;
     private String scenario;
 
     public static CharacterDTO toDTO(Character entity) {
@@ -42,6 +43,7 @@ public class CharacterDTO {
                     .player(entity.getPlayer().getName())
                     .job(entity.getJob().getName())
                     .subclass(entity.getSubclass().getName())
+                    .magicAvailable(entity.getMagicAvailable())
                     .scenario("Scénario non attribué")
                     .build();
         }

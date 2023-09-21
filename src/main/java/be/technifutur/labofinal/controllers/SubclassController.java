@@ -50,7 +50,7 @@ public class SubclassController {
     }
 
     @PutMapping("/{id:[0-9]+}")
-    public ResponseEntity<?> update(@PathVariable long id, @RequestBody @Valid SubclassForm form) {
+    public ResponseEntity<?> update(@PathVariable Long id, @RequestBody @Valid SubclassForm form) {
         subclassService.update(id, form.toEntity());
         return ResponseEntity.noContent().build();
     }

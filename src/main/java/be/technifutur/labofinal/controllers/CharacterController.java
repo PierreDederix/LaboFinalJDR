@@ -72,7 +72,7 @@ public class CharacterController {
     }
 
     @PatchMapping("/{id:[0-9]+}/scenario")
-    public ResponseEntity<?> addScenario(@PathVariable Long id, @RequestBody @Valid AddScenarioForm form) {
+    public ResponseEntity<?> assignScenario(@PathVariable Long id, @RequestBody @Valid AddScenarioForm form) {
         characterService.assignScenario(characterService.getOne(id), form.getId());
         return ResponseEntity.noContent().build();
     }

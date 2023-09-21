@@ -17,10 +17,14 @@ public class SubclassForm {
     @NotNull
     private Long jobId;
 
+    @NotNull
+    private Boolean magicAvailable;
+
     public Subclass toEntity() {
         Subclass subclass = new Subclass();
         subclass.setName(this.name);
         subclass.setDescription(this.description);
+        subclass.setMagicAvailable(this.magicAvailable);
         return subclass;
     }
 

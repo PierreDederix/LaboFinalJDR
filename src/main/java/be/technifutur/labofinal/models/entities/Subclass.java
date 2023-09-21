@@ -23,6 +23,9 @@ public class Subclass {
     @Column(name = "subclass_description", length = 1000)
     private String description;
 
+    @Column(name = "subclass_magic-available")
+    private Boolean magicAvailable;
+
     @ManyToOne
     private Job job;
 }

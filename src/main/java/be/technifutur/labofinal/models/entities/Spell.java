@@ -22,8 +22,11 @@ public class Spell {
     @Column(name = "spell_name", nullable = false, unique = true)
     private String name;
 
-    @Column(name = "spell_description")
+    @Column(name = "spell_description", length = 1000)
     private String description;
+
+    @Column(name = "spell_level")
+    private Integer spellLevel;
 
     @ManyToMany
     @JoinTable(
@@ -31,5 +34,5 @@ public class Spell {
             joinColumns = @JoinColumn(name = "spell_id"),
             inverseJoinColumns = @JoinColumn(name = "class_id")
     )
-    private Set<Job> availableClasses;
+    private Set<Job> availableJobs;
 }

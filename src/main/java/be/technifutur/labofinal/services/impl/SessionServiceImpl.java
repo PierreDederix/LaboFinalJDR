@@ -1,22 +1,28 @@
 package be.technifutur.labofinal.services.impl;
 
+import be.technifutur.labofinal.exceptions.ResourceAlreadyAssignedException;
 import be.technifutur.labofinal.exceptions.ResourceNotFoundException;
 import be.technifutur.labofinal.models.entities.Session;
 import be.technifutur.labofinal.models.entities.User;
 import be.technifutur.labofinal.repositories.SessionRepository;
+import be.technifutur.labofinal.repositories.UserRepository;
 import be.technifutur.labofinal.services.SessionService;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Service
 public class SessionServiceImpl implements SessionService {
 
     private final SessionRepository sessionRepository;
+    private final UserRepository userRepository;
 
-    public SessionServiceImpl(SessionRepository sessionRepository) {
+    public SessionServiceImpl(SessionRepository sessionRepository, UserRepository userRepository) {
         this.sessionRepository = sessionRepository;
+        this.userRepository = userRepository;
     }
 
     @Override
@@ -46,22 +52,23 @@ public class SessionServiceImpl implements SessionService {
     }
 
     @Override
-    public void addUser(Long id, User user) {
-        Session session = getOne(id);
+    public void addUser(Session session, Long id) {
+        User user = userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(id, User.class));
+        if (session.getUsers().contains(user)) {
+            throw new ResourceAlreadyAssignedException(id, User.class);
+        }
         session.getUsers().add(user);
         sessionRepository.save(session);
     }
 
     @Override
-    public void removeUser(Long id, User user) {
-        Session session = getOne(id);
-        session.getUsers().remove(user);
+    public void removeUser(Session session, Long id) {
+        session.getUsers().removeIf(user -> Objects.equals(user.getId(), id));
         sessionRepository.save(session);
     }
 
     @Override
-    public void modifyDate(Long id, LocalDate start, LocalDate end) {
-        Session session = getOne(id);
+    public void changeDate(Session session, LocalDate start, LocalDate end) {
         session.setSessionStart(start);
         session.setSessionEnd(end);
         sessionRepository.save(session);

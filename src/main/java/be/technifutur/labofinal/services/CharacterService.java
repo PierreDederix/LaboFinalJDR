@@ -13,4 +13,5 @@ public interface CharacterService {
     void assignScenario(Character character, Long id);
     Integer getStatMod(Integer stat);
     void levelUp(Character character);
+    void addSpell(Character character, Long id);
 }

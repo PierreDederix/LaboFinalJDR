@@ -59,6 +59,9 @@ public class Character {
     @JoinColumn(name = "character_subclass")
     private Subclass subclass;
 
+    @Column(name = "character_magic-available")
+    private Boolean magicAvailable;
+
     @ManyToMany
     @JoinTable(
             name = "character_spells",

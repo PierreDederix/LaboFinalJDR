@@ -5,9 +5,11 @@ import be.technifutur.labofinal.exceptions.ResourceNotFoundException;
 import be.technifutur.labofinal.exceptions.ScenarioAlreadyAssigned;
 import be.technifutur.labofinal.models.entities.Character;
 import be.technifutur.labofinal.models.entities.Scenario;
+import be.technifutur.labofinal.models.entities.Spell;
 import be.technifutur.labofinal.models.entities.Subclass;
 import be.technifutur.labofinal.repositories.CharacterRepository;
 import be.technifutur.labofinal.repositories.ScenarioRepository;
+import be.technifutur.labofinal.repositories.SpellRepository;
 import be.technifutur.labofinal.services.CharacterService;
 import org.springframework.stereotype.Service;
 
@@ -18,10 +20,12 @@ public class CharacterServiceImpl implements CharacterService {
 
     private final CharacterRepository characterRepository;
     private final ScenarioRepository scenarioRepository;
+    private final SpellRepository spellRepository;
 
-    public CharacterServiceImpl(CharacterRepository characterRepository, ScenarioRepository scenarioRepository) {
+    public CharacterServiceImpl(CharacterRepository characterRepository, ScenarioRepository scenarioRepository, SpellRepository spellRepository) {
         this.characterRepository = characterRepository;
         this.scenarioRepository = scenarioRepository;
+        this.spellRepository = spellRepository;
     }
 
 
@@ -34,6 +38,7 @@ public class CharacterServiceImpl implements CharacterService {
                             .toList()
             );
         }
+        character.setMagicAvailable(character.getJob().getMagicAvailable() || character.getSubclass().getMagicAvailable());
         return characterRepository.save(character).getId();
     }
 
@@ -57,6 +62,7 @@ public class CharacterServiceImpl implements CharacterService {
                             .toList()
             );
         }
+        character.setMagicAvailable(character.getJob().getMagicAvailable() || character.getSubclass().getMagicAvailable());
         characterRepository.save(character);
     }
 
@@ -91,6 +97,13 @@ public class CharacterServiceImpl implements CharacterService {
                 (character.getJob().getHpDiceValue()/2)+1 +
                 getStatMod(character.getConstitution())
         );
+        characterRepository.save(character);
+    }
+
+    @Override
+    public void addSpell(Character character, Long id) {
+        Spell spell = spellRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(id, Spell.class));
+        character.getSpells().add(spell);
         characterRepository.save(character);
     }
 }

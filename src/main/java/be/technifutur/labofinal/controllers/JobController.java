@@ -46,7 +46,7 @@ public class JobController {
     }
 
     @PutMapping("/{id:[0-9]+}")
-    public ResponseEntity<?> update(@PathVariable long id, @RequestBody @Valid JobForm form) {
+    public ResponseEntity<?> update(@PathVariable Long id, @RequestBody @Valid JobForm form) {
         jobService.update(id, form.toEntity());
         return ResponseEntity.noContent().build();
     }

@@ -11,6 +11,7 @@ public class JobDTO {
     private String name;
     private String description;
     private String hpDiceValue;
+    private Boolean magicAvailable;
 
     public static JobDTO toDTO(Job entity) {
         if (entity == null) {
@@ -22,6 +23,7 @@ public class JobDTO {
                 .name(entity.getName())
                 .description(entity.getDescription())
                 .hpDiceValue("1d" + entity.getHpDiceValue())
+                .magicAvailable(entity.getMagicAvailable())
                 .build();
     }
 }

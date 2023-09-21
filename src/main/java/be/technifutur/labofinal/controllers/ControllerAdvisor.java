@@ -39,6 +39,27 @@ public class ControllerAdvisor extends ResponseEntityExceptionHandler {
                 .body(body);
     }
 
+    @ExceptionHandler(ResourceAlreadyAssignedException.class)
+    public ResponseEntity<ErrorDTO> handle(ResourceAlreadyAssignedException ex, HttpServletRequest req) {
+        String uri = req.getRequestURI();
+        String method = req.getMethod();
+
+        Map<String, Object> error = new HashMap<>();
+        error.put("message", ex.getMessage());
+        error.put("id", ex.getId());
+        error.put("resourceType", ex.getResourceClass().getSimpleName());
+
+        ErrorDTO body = ErrorDTO.builder()
+                .uri(uri)
+                .method(method)
+                .errors(Set.of(error))
+                .build();
+
+        return ResponseEntity
+                .status(HttpStatus.CONFLICT)
+                .body(body);
+    }
+
     @ExceptionHandler(UniqueViolationException.class)
     public ResponseEntity<ErrorDTO> handle(UniqueViolationException ex, HttpServletRequest req) {
         String uri = req.getRequestURI();

@@ -23,11 +23,15 @@ public class JobForm {
     @EvenHitDice(message = "Dice's value should be a multiple of 2")
     private Integer hpDiceValue;
 
+    @NotNull
+    private Boolean magicAvailable;
+
     public Job toEntity() {
         Job job = new Job();
         job.setName(this.name);
         job.setDescription(this.description);
         job.setHpDiceValue(this.hpDiceValue);
+        job.setMagicAvailable(this.magicAvailable);
         return job;
     }
 }

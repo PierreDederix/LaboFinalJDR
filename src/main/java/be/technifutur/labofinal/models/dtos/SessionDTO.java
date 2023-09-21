@@ -7,6 +7,7 @@ import lombok.Data;
 
 import java.time.LocalDate;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Data
 @Builder
@@ -15,7 +16,7 @@ public class SessionDTO {
     private String name;
     private LocalDate sessionStart;
     private LocalDate sessionEnd;
-    private Set<User> users;
+    private Set<String> users;
     private String scenario;
 
     public static SessionDTO toDTO(Session entity) {
@@ -28,6 +29,9 @@ public class SessionDTO {
                 .name(entity.getName())
                 .sessionStart(entity.getSessionStart())
                 .sessionEnd(entity.getSessionEnd())
+                .users(entity.getUsers().stream()
+                        .map(User::getUsername)
+                        .collect(Collectors.toSet()))
                 .scenario(entity.getScenario().getName())
                 .build();
     }
