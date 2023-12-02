@@ -74,7 +74,7 @@ public class DataInitializer implements CommandLineRunner {
         Job job2 = new Job();
         job2.setName("Magicien");
         job2.setDescription("Les magiciens sont de puissants utilisateurs de magie, définis et unifiés en une classe par les sorts qu’ils lancent. En utilisant des ondes magiques qui voyagent à travers l’univers, les magiciens lancent des sorts tels que des flammes explosives, des arcs de foudre, des illusions trompeuses et le contrôle de l’esprit. Leur magie peut invoquer des monstres d’autres plans d’existence, entrevoir le futur ou transformer des ennemis en zombies. Leurs sorts les plus puissants peuvent transformer une substance en une autre, faire tomber des météores du ciel et même ouvrir des portails vers d’autres mondes.");
-        job1.setHpDiceValue(6);
+        job2.setHpDiceValue(6);
         job2.setMagicAvailable(true);
         jobRepository.save(job2);
 
