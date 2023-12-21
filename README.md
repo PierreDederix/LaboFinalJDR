@@ -1,0 +1,7 @@
+Ce projet d'api vise à émuler une gestion de sessions et de fiches de personnages
+pour un jeu de rôles sur tables. Le projet est uniquement en back end et n'a pas
+de composante de front. Les sections sorts, scénario et sessions ne sont pas encore
+achevées. Au niveau de la sécurité, aucune restriction n'est mise pour pouvoir
+accéder aux fonctionnalités. Les fonctions de crud des autres sections devraient
+s'effectuer normalement.Quelques validations et gestions d'erreur ont été faites
+mais il en manque toutefois un certain nombre.
